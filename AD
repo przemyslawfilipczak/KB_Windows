@@ -1,0 +1,2 @@
+# Init replication all part on DC
+repadmin /syncall dc01 /APed 
