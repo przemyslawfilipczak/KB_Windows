@@ -1,0 +1,11 @@
+#CMD
+winrm quickconfig -transport: https
+
+#PS
+$port=5986 
+netsh advfirewall firewall add rule name="Windows Remote Management (HTTPS-In)" dir=in action=allow protocol=TCP localport=$port 
+Set-Service WinRM -StartMode Automatic 
+# Verify start mode and state - it should be running
+Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"} 
+
+ 
