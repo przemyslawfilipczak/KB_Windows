@@ -13,6 +13,18 @@ Get-ADDomain | Select-Object InfrastructureMaster, RIDMaster, PDCEmulator
 # Init replication all part on DC
 repadmin /syncall dc01 /APed 
 
+#Replication AD
+repadmin /replsummary
+
+repadmin /showrepl
+
+repadmin /showrepl <DCName - dc1> /errorsonly
+
+repadmin /showrepl <DCName - dc1>
+
+#Status Global catalog
+repadmin /showrepl * /csv > replstatus.csv
+
 # Get counts objects in AD
 $Servers = (Get-ADComputer -Filter { OperatingSystem -like "*Server*" } | Measure-Object).Count
 $Users = (Get-ADUser -Filter * | Measure-Object).Count
