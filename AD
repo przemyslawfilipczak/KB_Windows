@@ -1,2 +1,19 @@
+# AD
+Get-ADForest
+
+$ADDomainMode = (Get-ADDomain).DomainMode
+
+# FSMO
+#// Schema master and Domain naming master roles
+Get-ADForest | Select-Object DomainNamingMaster, SchemaMaster
+
+#// RID master, PDC emulator, and Infrastructure master
+Get-ADDomain | Select-Object InfrastructureMaster, RIDMaster, PDCEmulator
+
 # Init replication all part on DC
 repadmin /syncall dc01 /APed 
+
+# Get counts objects in AD
+$Servers = (Get-ADComputer -Filter { OperatingSystem -like "*Server*" } | Measure-Object).Count
+$Users = (Get-ADUser -Filter * | Measure-Object).Count
+
